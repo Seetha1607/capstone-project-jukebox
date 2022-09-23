@@ -8,4 +8,9 @@
 package com.niit.jdp.model;
 
 public class Playlist {
+    private int playlistId;
+    private String playlistName;
+    private int songId;
+    private String songName;
+    private String songPath;
 }
