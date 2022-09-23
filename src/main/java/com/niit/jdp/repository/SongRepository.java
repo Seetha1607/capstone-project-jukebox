@@ -9,10 +9,7 @@ package com.niit.jdp.repository;
 
 import com.niit.jdp.model.Song;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +36,23 @@ public class SongRepository implements Repository<Song> {
 
     @Override
     public Song getById(Connection connection, int id) throws SQLException {
-        return null;
+
+        String searchQuery = "SELECT * FROM `jukebox`.`song` WHERE(`song_id` = ?);";
+        Song songs = new Song();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(searchQuery)) {
+            preparedStatement.setInt(1, id);
+            ResultSet songsResultSet = preparedStatement.executeQuery();
+            while (songsResultSet.next()) {
+                int songId = songsResultSet.getInt("song_id");
+                String songName = songsResultSet.getString("song_name");
+                String artistName = songsResultSet.getString("artist_name");
+                String genre = songsResultSet.getString("genre");
+                String duration = songsResultSet.getString("duration");
+                String songPath = songsResultSet.getString("Song path");
+                songs = new Song(songId, songName, artistName, genre, duration, songPath);
+            }
+        }
+        return songs;
     }
 
     @Override
