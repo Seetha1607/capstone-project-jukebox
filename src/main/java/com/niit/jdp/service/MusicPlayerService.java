@@ -16,6 +16,12 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class MusicPlayerService {
+    /**
+     * It takes the playlist ID as input and plays the song corresponding to that playlist ID
+     *
+     * @param connection The connection object that is used to connect to the database.
+     * @param songPath The path of the song file.
+     */
     public void play(Connection connection, String songPath) throws SQLException {
 
         int playlistID;
@@ -73,39 +79,33 @@ public class MusicPlayerService {
 
                 input = sc.nextInt();
                 switch (input) {
-                    case 1: {
+                    case 1 -> {
                         clippo = clip.getMicrosecondPosition();
                         clip.stop();
                         System.out.println("---------------");
                         System.out.println("Song Paused");
                         System.out.println("---------------");
-                        break;
                     }
-                    case 2: {
+                    case 2 -> {
                         clip.setMicrosecondPosition(clippo);
                         clip.start();
                         System.out.println("---------------");
                         System.out.println("Song Resumed");
                         System.out.println("---------------");
-                        break;
                     }
-                    case 3: {
+                    case 3 -> {
                         clip.setMicrosecondPosition(0);
                         clip.start();
                         System.out.println("---------------");
                         System.out.println("Song Restarted");
                         System.out.println("---------------");
-                        break;
                     }
-                    case 4: {
-                        System.out.println("Exit");
-                    }
-                    default:
-                        System.out.println("Invalid Choice!!");
+                    case 4 -> System.out.println("Exit");
+                    default -> System.out.println("Invalid Choice!!");
                 }
             }
-        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
-            throw new RuntimeException(e);
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException exception) {
+            exception.printStackTrace();
         }
     }
 }
