@@ -65,4 +65,18 @@ public class SongRepository implements Repository<Song> {
         }
         return numberOfRowsAffected > 0;
     }
+
+    public boolean addSong(Connection connection, Song song) throws SQLException {
+        String insertQuery = "INSERT INTO `jukebox`.`song` (`song_name`, `duration`, `artist_name`, `genre`, `Song path`) VALUES (?, ?, ?, ?, ?);";
+        int numberOfRowsAffected;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            preparedStatement.setString(1, song.getSongName());
+            preparedStatement.setString(2, song.getDuration());
+            preparedStatement.setString(3, song.getArtistName());
+            preparedStatement.setString(4, song.getGenre());
+            preparedStatement.setString(5, song.getSongPath());
+            numberOfRowsAffected = preparedStatement.executeUpdate();
+        }
+        return numberOfRowsAffected > 0;
+    }
 }
