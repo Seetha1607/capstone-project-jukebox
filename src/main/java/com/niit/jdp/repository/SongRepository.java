@@ -7,5 +7,25 @@
 
 package com.niit.jdp.repository;
 
-public class SongRepository {
+import com.niit.jdp.model.Song;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
+public class SongRepository implements Repository<Song> {
+    @Override
+    public List<Song> getAll(Connection connection) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public Song getById(Connection connection, int id) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public boolean deleteById(Connection connection, int id) throws SQLException {
+        return false;
+    }
 }

@@ -79,9 +79,9 @@ public class Playlist {
     public int hashCode() {
         return Objects.hash(playlistId, playlistName, songId, songName, songPath);
     }
+
     @Override
     public String toString() {
-        return "Playlist ID : " + getPlaylistId() + ", Playlist Name : " + getPlaylistName() +
-                ", Song ID : " + getSongId() + ", Song Name : " + getSongName() + ", Song Path : " + getSongPath();
+        return "Playlist ID : " + getPlaylistId() + ", Playlist Name : " + getPlaylistName() + ", Song ID : " + getSongId() + ", Song Name : " + getSongName() + ", Song Path : " + getSongPath();
     }
 }
