@@ -20,7 +20,7 @@ public class MusicPlayerService {
      * It takes the playlist ID as input and plays the song corresponding to that playlist ID
      *
      * @param connection The connection object that is used to connect to the database.
-     * @param songPath The path of the song file.
+     * @param songPath   The path of the song file.
      */
     public void play(Connection connection, String songPath) throws SQLException {
 
@@ -74,7 +74,7 @@ public class MusicPlayerService {
             int temp = 0;
             long clippo = 0;
 
-            while (temp == 0){
+            while (temp == 0) {
                 System.out.println("\nEnter your Choice\n------- ---- -------\n1.Pause\n2.Resume\n3.Restart\n4.Exit");
 
                 input = sc.nextInt();
