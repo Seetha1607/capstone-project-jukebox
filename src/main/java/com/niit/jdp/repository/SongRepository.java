@@ -7,6 +7,7 @@
 
 package com.niit.jdp.repository;
 
+import com.niit.jdp.exception.SongNotFoundException;
 import com.niit.jdp.model.Song;
 
 import java.sql.*;
@@ -84,7 +85,12 @@ public class SongRepository implements Repository<Song> {
                 String duration = songsResultSet.getString("duration");
                 String songPath = songsResultSet.getString("Song path");
                 songs = new Song(songId, songName, artistName, genre, duration, songPath);
+                if(songId == 0 ) {
+                    throw new SongNotFoundException("The song is not in the list!! Try Valid choice.");
+                }
             }
+        } catch (SongNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return songs;
     }
