@@ -8,12 +8,13 @@
 package com.niit.jdp.exception;
 
 public class SongNotFoundException extends Exception {
-    String message;
+    final String message;
 
     public SongNotFoundException(String str) {
         message = str;
     }
 
+    @Override
     public String toString() {
         return ("Custom Exception Occurred : " + message);
     }
