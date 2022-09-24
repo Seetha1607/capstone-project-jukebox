@@ -38,6 +38,14 @@ public class PlaylistRepository implements Repository<Playlist> {
         return List.of(new Playlist());
     }
 
+    /**
+     * This function takes a connection and a playlist object as parameters and inserts the playlist object into the
+     * database
+     *
+     * @param connection This is the connection to the database.
+     * @param playlist The playlist object that you want to add to the database.
+     * @return The number of rows affected by the query.
+     */
     @Override
     public boolean add(Connection connection, Playlist playlist) throws SQLException {
         String insertQuery = "INSERT INTO `jukebox`.`playlist` (playlist_name, song_id,song_name) VALUES (?,?,?);";
