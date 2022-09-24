@@ -153,22 +153,6 @@ update `jukebox`.`playlist` SET `song_name` = 'Perfect' where (`playlist_id` = '
 update `jukebox`.`playlist` SET `song_name` = 'What Makes You Beautiful' where (`playlist_id` = '15');
 
 
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/Believer-Imagine-Dragons.wav' where (`playlist_id` = '1');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/Dance-Monkey-Tones-And-I.wav' where (`playlist_id` = '2');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/Umbrella-Rihanna.wav' where (`playlist_id` = '3');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/Unstoppable-Sia.wav' where (`playlist_id` = '4');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/Who-Says-Selena-Gomez.wav' where (`playlist_id` = '5');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/Girls-Like-You-Maroon-5-Feat-Cardi-B.wav' where (`playlist_id` = '6');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/Love-Yourself-Justin-Bieber.wav' where (`playlist_id` = '7');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/Senorita-Camila-Cabello.wav' where (`playlist_id` = '8');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/The-Weeknd-Blinding-Lights.wav' where (`playlist_id` = '9');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/We-Dont-Talk-Anymore-Charlie-Puth-Feat-Selena-Gomez.wav' where (`playlist_id` = '10');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/Lovely-Billie-Eilish.wav' where (`playlist_id` = '11');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/Memories-Maroon-5.wav' where (`playlist_id` = '12');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/Payphone-Maroon-5-Feat-Wiz-Khalifa.wav' where (`playlist_id` = '13');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/Perfect-Ed-Sheeran.wav' where (`playlist_id` = '14');
-update `jukebox`.`playlist` SET `song_path` = 'src/main/resources/songs/What-Makes-You-Beautiful-Harry-Styles.wav' where (`playlist_id` = '15');
-
 
 --Selecting playlist according to the album name:
 select playlist.playlist_id as 'Playlist ID',
@@ -176,5 +160,12 @@ select playlist.playlist_id as 'Playlist ID',
        song.song_name AS 'Song Name'
        FROM playlist
        JOIN song ON (song.song_id = playlist.songs);
+
+--create playlist method:
+insert into `jukebox`.`playlist` (playlist_name, song_id,song_name) VALUES ('Favo','12','Unstoppable');
+
+--add new song to the song list:
+insert into `jukebox`.`song` (song_name, artist_name,genre,Song_path) VALUES (?,?,?)
+
 
 
