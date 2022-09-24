@@ -1,5 +1,12 @@
 package com.niit.jdp;
 
+import com.niit.jdp.repository.PlaylistRepository;
+import com.niit.jdp.repository.SongRepository;
+import com.niit.jdp.service.DatabaseService;
+import com.niit.jdp.service.MusicPlayerService;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
@@ -20,6 +27,28 @@ public class Main {
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
 
+            DatabaseService databaseService = new DatabaseService();
+            try {
+                databaseService.connect();
+                Connection connection = databaseService.getConnection();
+                SongRepository songRepository = new SongRepository();
+                PlaylistRepository playlistRepository = new PlaylistRepository();
+                MusicPlayerService musicPlayerService = new MusicPlayerService();
+
+                switch (choice){
+                    case 1: {
+                        System.out.println();
+                        System.out.println("View all Playlist");
+                        System.out.println("===========================");
+                        playlistRepository.getAll(connection);
+                        break;
+                    }
+                }
+            } catch (SQLException | ClassNotFoundException exception) {
+                System.err.println("Could not connect to the database!");
+                exception.printStackTrace();
+                choice = 5;
+            }
         } while (choice != 5);
     }
 }
