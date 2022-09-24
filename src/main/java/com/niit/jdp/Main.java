@@ -1,5 +1,7 @@
 package com.niit.jdp;
 
+import com.niit.jdp.exception.SongNotFoundException;
+import com.niit.jdp.model.Song;
 import com.niit.jdp.repository.PlaylistRepository;
 import com.niit.jdp.repository.SongRepository;
 import com.niit.jdp.service.DatabaseService;
@@ -7,6 +9,7 @@ import com.niit.jdp.service.MusicPlayerService;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -35,7 +38,7 @@ public class Main {
                 PlaylistRepository playlistRepository = new PlaylistRepository();
                 MusicPlayerService musicPlayerService = new MusicPlayerService();
 
-                switch (choice){
+                switch (choice) {
                     case 1: {
                         System.out.println();
                         System.out.println("View all Playlist");
@@ -43,8 +46,55 @@ public class Main {
                         playlistRepository.getAll(connection);
                         break;
                     }
+                    case 2: {
+
+                        System.out.println();
+                        playlistRepository.getAll(connection);
+                        System.out.println("-------------------------------------------------------");
+                        System.out.println("Enter Song ID to view full song details :");
+                        int id = scanner.nextInt();
+                        Song byId = songRepository.getById(connection, id);
+                        if (byId.getSongId() == 0) {
+                            throw new SongNotFoundException("The song is not in the list!! Try Valid choice.");
+                        } else {
+                            System.out.println(byId);
+                        }
+                        break;
+                    }
+                    case 3: {
+                        System.out.println();
+                        System.out.println("Viewing playlist to select ID");
+                        System.out.println();
+                        playlistRepository.getAll(connection);
+                        String songPath = null;
+                        musicPlayerService.play(connection, songPath);
+                        break;
+                    }
+                    case 4: {
+                        System.out.println();
+                        System.out.println("Enter you're own Playlist Name : ");
+                        String playlistName = scanner.next();
+                        System.out.println("Your Playlist Name is created : " + playlistName);
+                        System.out.println("Enter 1 to add song to your playlist : ");
+                        int next = scanner.nextInt();
+                        while (next == 1) {
+                            List<Song> all = songRepository.getAll(connection);
+                            System.out.println(all);
+                            System.out.println("Enter Song ID to add into the playlist :");
+                            int songId = scanner.nextInt();
+                            System.out.println("Enter Song Name to add into the playlist : ");
+                            String songName = scanner.next();
+                            playlistRepository.createPlaylist(connection, playlistName, songId, songName);
+                            System.out.println("Enter 2 to continue adding song to your playlist or 0 to stop adding");
+                            next = scanner.nextInt();
+                            break;
+                        }
+                        break;
+                    }
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + choice);
                 }
-            } catch (SQLException | ClassNotFoundException exception) {
+            } catch (SQLException | ClassNotFoundException | SongNotFoundException exception) {
                 System.err.println("Could not connect to the database!");
                 exception.printStackTrace();
                 choice = 5;
