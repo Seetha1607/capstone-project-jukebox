@@ -8,9 +8,12 @@
 package com.niit.jdp.repository;
 
 
+import com.niit.jdp.exception.PlaylistNotFoundException;
 import com.niit.jdp.model.Playlist;
+import com.niit.jdp.model.Song;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistRepository implements Repository<Playlist> {
@@ -59,9 +62,38 @@ public class PlaylistRepository implements Repository<Playlist> {
         return numberOfRowsAffected > 0;
     }
 
+    /**
+     * This function is used to get a playlist by its id
+     *
+     * @param connection The connection to the database.
+     * @param id The id of the playlist you want to get.
+     * @return The method returns a playlist object.
+     */
     @Override
     public Playlist getById(Connection connection, int id) throws SQLException {
-        return null;
+        String searchQuery = "SELECT * FROM `jukebox`.`playlist` WHERE(`playlist_id` = ?);";
+        List<Song> songList = new SongRepository().getAll(connection);
+        List<Song> songs = new ArrayList<>();
+        Playlist playlist = new Playlist();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(searchQuery)) {
+            preparedStatement.setInt(1, id);
+            ResultSet playlistResultSet = preparedStatement.executeQuery();
+            while (playlistResultSet.next()) {
+                int playlistId = playlistResultSet.getInt("playlist_id");
+                String playlistName = playlistResultSet.getString("playlist_name");
+                int songNumber = playlistResultSet.getInt("song_id");
+                String songName = playlistResultSet.getString("song_name");
+                Song songId = songList.get(songNumber - 1);
+                songs.add(songId);
+                playlist = new Playlist(playlistId, playlistName, songNumber,songName);
+                if (playlistId == 0) {
+                    throw new PlaylistNotFoundException("The playlist is not found !");
+                }
+            }
+        } catch (PlaylistNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return playlist;
     }
 
     /**
