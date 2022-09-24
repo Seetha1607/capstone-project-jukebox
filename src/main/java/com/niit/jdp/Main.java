@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int choice = 0;
+        int choice;
 
         do {
             System.out.println("Welcome to the JukeBox Catalogue");
@@ -32,7 +32,8 @@ public class Main {
 
             DatabaseService databaseService = new DatabaseService();
             try {
-                databaseService.connect();
+                boolean connect = databaseService.connect();
+                System.out.println(connect);
                 databaseService.printConnectionStatus();
                 Connection connection = databaseService.getConnection();
                 SongRepository songRepository = new SongRepository();
@@ -67,8 +68,7 @@ public class Main {
                         System.out.println("Viewing playlist to select ID");
                         System.out.println();
                         playlistRepository.getAll(connection);
-                        String songPath = null;
-                        musicPlayerService.play(connection, songPath);
+                        musicPlayerService.play(connection, null);
                         break;
                     }
                     case 4: {
@@ -78,7 +78,7 @@ public class Main {
                         System.out.println("Your Playlist Name is created : " + playlistName);
                         System.out.println("Enter 1 to add song to your playlist : ");
                         int next = scanner.nextInt();
-                        while (next == 1) {
+                        if (1 == next) {
                             List<Song> all = songRepository.getAll(connection);
                             System.out.println(all);
                             System.out.println("Enter Song ID to add into the playlist :");
@@ -87,15 +87,13 @@ public class Main {
                             String songName = scanner.next();
                             playlistRepository.createPlaylist(connection, playlistName, songId, songName);
                             System.out.println("Enter 2 to continue adding song to your playlist or 0 to stop adding");
-                            next = scanner.nextInt();
-                            break;
                         }
                         break;
                     }
                     default:
                         throw new IllegalStateException("Unexpected value: " + choice);
                 }
-            } catch (SQLException | ClassNotFoundException | SongNotFoundException exception) {
+            } catch (SQLException | SongNotFoundException exception) {
                 System.err.println("Could not connect to the database!");
                 exception.printStackTrace();
                 choice = 5;
