@@ -75,8 +75,7 @@ public class MusicPlayerService {
             long clippo = 0;
 
             while (temp == 0) {
-                System.out.println("\nEnter your Choice\n------- ---- -------\n1.Pause\n2.Resume\n3.Restart\n4.Exit");
-
+                System.out.println("\nEnter your Choice\n------- ---- -------\n1.Pausen\n2.Resume\n3.Restart\n4.Forward by 5s\n5.Backwards by 5s\n6.Stop and Exit");
                 input = sc.nextInt();
                 switch (input) {
                     case 1: {
@@ -85,6 +84,7 @@ public class MusicPlayerService {
                         System.out.println("---------------");
                         System.out.println("Song Paused");
                         System.out.println("---------------");
+                        break;
                     }
                     case 2: {
                         clip.setMicrosecondPosition(clippo);
@@ -92,6 +92,7 @@ public class MusicPlayerService {
                         System.out.println("---------------");
                         System.out.println("Song Resumed");
                         System.out.println("---------------");
+                        break;
                     }
                     case 3: {
                         clip.setMicrosecondPosition(0);
@@ -99,12 +100,30 @@ public class MusicPlayerService {
                         System.out.println("---------------");
                         System.out.println("Song Restarted");
                         System.out.println("---------------");
+                        break;
                     }
                     case 4: {
-                        System.out.println("Exit");
+                        System.out.println("---------------");
+                        System.out.println("Forwarding by 5s");
+                        System.out.println("---------------");
+                        clip.setMicrosecondPosition(clip.getMicrosecondPosition() + 5000000);
+                        break;
+                    }
+                    case 5: {
+                        System.out.println("---------------");
+                        System.out.println("Back-warding by 5s");
+                        System.out.println("---------------");
+                        clip.setMicrosecondPosition(clip.getMicrosecondPosition() - 5000000);
+                        break;
+                    }
+                    case 6: {
+                        clip.stop();
+                        System.out.println("Stop and Exit");
+                        break;
                     }
                     default: {
                         System.out.println("Invalid Choice!!");
+                        break;
                     }
                 }
             }
