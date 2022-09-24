@@ -42,27 +42,6 @@ public class SongRepository implements Repository<Song> {
     }
 
     /**
-     * It takes a connection and a song object as parameters, and returns a boolean value
-     *
-     * @param connection The connection to the database.
-     * @param song       The song object that you want to add to the database.
-     * @return The number of rows affected by the query.
-     */
-    @Override
-    public boolean add(Connection connection, Song song) throws SQLException {
-        String insertQuery = "INSERT INTO `jukebox`.`song` (song_name, artist_name,genre,Song_path) VALUES (?,?,?);";
-        int numberOfRowsAffected;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-            preparedStatement.setString(1, song.getSongName());
-            preparedStatement.setString(2, song.getArtistName());
-            preparedStatement.setString(3, song.getGenre());
-            preparedStatement.setString(4, song.getSongPath());
-            numberOfRowsAffected = preparedStatement.executeUpdate();
-        }
-        return numberOfRowsAffected > 0;
-    }
-
-    /**
      * This function is used to get a song by its id
      *
      * @param connection The connection to the database.
@@ -85,7 +64,7 @@ public class SongRepository implements Repository<Song> {
                 String duration = songsResultSet.getString("duration");
                 String songPath = songsResultSet.getString("Song path");
                 songs = new Song(songId, songName, artistName, genre, duration, songPath);
-                if(songId == 0 ) {
+                if (songId == 0) {
                     throw new SongNotFoundException("The song is not in the list!! Try Valid choice.");
                 }
             }

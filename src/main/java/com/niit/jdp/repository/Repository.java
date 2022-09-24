@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface Repository<T> {
     List<T> getAll(Connection connection) throws SQLException;
-    boolean add(Connection connection, T object) throws SQLException;
 
     T getById(Connection connection, int id) throws SQLException;
 
