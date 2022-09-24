@@ -8,7 +8,6 @@
 package com.niit.jdp.model;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 
 public class Playlist {
     private int playlistId;
@@ -30,32 +29,16 @@ public class Playlist {
         return playlistId;
     }
 
-    public void setPlaylistId(int playlistId) {
-        this.playlistId = playlistId;
-    }
-
     public String getPlaylistName() {
         return playlistName;
-    }
-
-    public void setPlaylistName(String playlistName) {
-        this.playlistName = playlistName;
     }
 
     public int getSongId() {
         return songId;
     }
 
-    public void setSongId(int songId) {
-        this.songId = songId;
-    }
-
     public String getSongName() {
         return songName;
-    }
-
-    public void setSongName(String songName) {
-        this.songName = songName;
     }
 
     @Override
@@ -73,7 +56,6 @@ public class Playlist {
 
     @Override
     public String toString() {
-        return "Playlist ID : " + getPlaylistId() + ", Playlist Name : " + getPlaylistName() +
-                ", Song ID : " + getSongId() + ", Song Name : " +getSongName();
+        return "Playlist ID : " + getPlaylistId() + ", Playlist Name : " + getPlaylistName() + ", Song ID : " + getSongId() + ", Song Name : " + getSongName();
     }
 }
