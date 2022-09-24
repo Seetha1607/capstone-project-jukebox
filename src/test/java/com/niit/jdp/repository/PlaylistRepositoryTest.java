@@ -1,6 +1,5 @@
 package com.niit.jdp.repository;
 
-import com.niit.jdp.exception.PlaylistNotFoundException;
 import com.niit.jdp.model.Playlist;
 import com.niit.jdp.service.DatabaseService;
 import org.junit.jupiter.api.AfterEach;
@@ -31,7 +30,7 @@ class PlaylistRepositoryTest {
     }
 
     @Test
-    void getPlaylistByIdSuccess() throws SQLException, ClassNotFoundException, PlaylistNotFoundException {
+    void getPlaylistByIdSuccess() throws SQLException {
         databaseService.connect();
         Connection connection1 = databaseService.getConnection();
         Playlist actualOutput = playlistRepository.getById(connection1, playlist.getPlaylistId());
@@ -40,7 +39,7 @@ class PlaylistRepositoryTest {
     }
 
     @Test
-    void getPlaylistByIdFailure() throws SQLException, ClassNotFoundException, PlaylistNotFoundException {
+    void getPlaylistByIdFailure() throws SQLException {
         databaseService.connect();
         Connection connection1 = databaseService.getConnection();
         Playlist expectedOutput = playlistRepository.getById(connection1, playlist.getPlaylistId());
