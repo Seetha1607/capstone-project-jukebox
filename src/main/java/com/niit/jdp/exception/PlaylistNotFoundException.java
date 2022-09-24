@@ -7,14 +7,15 @@
 
 package com.niit.jdp.exception;
 
-public class PlaylistNotFoundException extends Exception{
+public class PlaylistNotFoundException extends Exception {
 
-    String message;
+    final String message;
 
     public PlaylistNotFoundException(String str) {
         message = str;
     }
 
+    @Override
     public String toString() {
         return ("Custom Exception Occurred : " + message);
     }
