@@ -75,7 +75,7 @@ public class MusicPlayerService {
             long clippo = 0;
 
             while (temp == 0) {
-                System.out.println("\nEnter your Choice\n------- ---- -------\n1.Pausen\n2.Resume\n3.Restart\n4.Forward by 5s\n5.Backwards by 5s\n6.Stop and Exit");
+                System.out.println("\nEnter your Choice\n------- ---- -------\n1.Pause\n2.Resume\n3.Restart\n4.Forward by 5s\n5.Backwards by 5s\n6.Stop and Exit");
                 input = sc.nextInt();
                 switch (input) {
                     case 1: {
