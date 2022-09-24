@@ -33,6 +33,7 @@ public class Main {
             DatabaseService databaseService = new DatabaseService();
             try {
                 databaseService.connect();
+                databaseService.printConnectionStatus();
                 Connection connection = databaseService.getConnection();
                 SongRepository songRepository = new SongRepository();
                 PlaylistRepository playlistRepository = new PlaylistRepository();

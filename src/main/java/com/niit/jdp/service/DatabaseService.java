@@ -36,7 +36,6 @@ public class DatabaseService {
         //Class.forName("com.mysql.cj.jdbc.Driver");
 
         this.connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        printConnectionStatus();
         return connection != null;
 
     }
