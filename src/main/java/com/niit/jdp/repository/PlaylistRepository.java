@@ -40,13 +40,12 @@ public class PlaylistRepository implements Repository<Playlist> {
 
     @Override
     public boolean add(Connection connection, Playlist playlist) throws SQLException {
-        String insertQuery = "INSERT INTO `jukebox`.`playlist` (playlist_name, song_id,song_name) VALUES ('Favo','12','Unstoppable');";
+        String insertQuery = "INSERT INTO `jukebox`.`playlist` (playlist_name, song_id,song_name) VALUES (?,?,?);";
         int numberOfRowsAffected;
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-            preparedStatement.setInt(1, playlist.getPlaylistId());
-            preparedStatement.setString(2, playlist.getPlaylistName());
-            preparedStatement.setInt(3, playlist.getSongId());
-            preparedStatement.setString(4,playlist.getSongName());
+            preparedStatement.setString(1, playlist.getPlaylistName());
+            preparedStatement.setInt(2, playlist.getSongId());
+            preparedStatement.setString(3,playlist.getSongName());
             numberOfRowsAffected = preparedStatement.executeUpdate();
         }
         return numberOfRowsAffected > 0;

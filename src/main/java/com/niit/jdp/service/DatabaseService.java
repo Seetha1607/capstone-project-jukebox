@@ -31,9 +31,14 @@ public class DatabaseService {
      *
      * @return A boolean value.
      */
-    public boolean connect() throws SQLException {
-        connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    public boolean connect() throws SQLException, ClassNotFoundException {
+        // 1. load the jdbc driver into the program memory
+        //Class.forName("com.mysql.cj.jdbc.Driver");
+
+        this.connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+        printConnectionStatus();
         return connection != null;
+
     }
 
     /**
