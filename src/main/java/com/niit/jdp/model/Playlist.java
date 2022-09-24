@@ -8,23 +8,22 @@
 package com.niit.jdp.model;
 
 import java.util.Objects;
+import java.util.StringJoiner;
 
 public class Playlist {
     private int playlistId;
     private String playlistName;
     private int songId;
     private String songName;
-    private String songPath;
 
     public Playlist() {
     }
 
-    public Playlist(int playlistId, String playlistName, int songId, String songName, String songPath) {
+    public Playlist(int playlistId, String playlistName, int songId, String songName) {
         this.playlistId = playlistId;
         this.playlistName = playlistName;
         this.songId = songId;
         this.songName = songName;
-        this.songPath = songPath;
     }
 
     public int getPlaylistId() {
@@ -59,29 +58,22 @@ public class Playlist {
         this.songName = songName;
     }
 
-    public String getSongPath() {
-        return songPath;
-    }
-
-    public void setSongPath(String songPath) {
-        this.songPath = songPath;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Playlist playlist = (Playlist) o;
-        return playlistId == playlist.playlistId && songId == playlist.songId && Objects.equals(playlistName, playlist.playlistName) && Objects.equals(songName, playlist.songName) && Objects.equals(songPath, playlist.songPath);
+        return playlistId == playlist.playlistId && songId == playlist.songId && Objects.equals(playlistName, playlist.playlistName) && Objects.equals(songName, playlist.songName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(playlistId, playlistName, songId, songName, songPath);
+        return Objects.hash(playlistId, playlistName, songId, songName);
     }
 
     @Override
     public String toString() {
-        return "Playlist ID : " + getPlaylistId() + ", Playlist Name : " + getPlaylistName() + ", Song ID : " + getSongId() + ", Song Name : " + getSongName() + ", Song Path : " + getSongPath();
+        return "Playlist ID : " + getPlaylistId() + ", Playlist Name : " + getPlaylistName() +
+                ", Song ID : " + getSongId() + ", Song Name : " +getSongName();
     }
 }
