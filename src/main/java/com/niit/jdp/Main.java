@@ -88,7 +88,8 @@ public class Main {
                             int songId = scanner.nextInt();
                             System.out.println("Enter Song Name to add into the playlist : ");
                             String songName = scanner.next();
-                            playlistRepository.createPlaylist(connection, playlistName, songId, songName);
+                            boolean playlist = playlistRepository.createPlaylist(connection, playlistName, songId, songName);
+                            System.out.println(playlist);
                             System.out.println("Enter 2 to continue adding song to your playlist or 0 to stop adding");
                             scanner.nextInt();
                         }

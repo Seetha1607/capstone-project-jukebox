@@ -34,6 +34,8 @@ public class SongRepository implements Repository<Song> {
                 String genre = songsResultSet.getString("genre");
                 String duration = songsResultSet.getString("duration");
                 String songPath = songsResultSet.getString("Song path");
+                System.out.format("%s     %n%s     %n%s     %n%s%n", "Song ID :" + songsResultSet.getInt(1) + " ", "Song Name :" + songsResultSet.getString(2) + " ", "Artist Name :" + songsResultSet.getString(3) + " ", "Genre :" + songsResultSet.getString(4));
+                System.out.println();
                 Song songs = new Song(songId, songName, artistName, genre, duration, songPath);
                 songsList.add(songs);
             }
@@ -87,27 +89,6 @@ public class SongRepository implements Repository<Song> {
         int numberOfRowsAffected;
         try (PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
             preparedStatement.setInt(1, id);
-            numberOfRowsAffected = preparedStatement.executeUpdate();
-        }
-        return numberOfRowsAffected > 0;
-    }
-
-    /**
-     * It takes a song object and inserts it into the database
-     *
-     * @param connection The connection to the database.
-     * @param song       The song object that we want to add to the database.
-     * @return The number of rows affected by the query.
-     */
-    public boolean addSong(Connection connection, Song song) throws SQLException {
-        String insertQuery = "INSERT INTO `jukebox`.`song` (`song_name`, `duration`, `artist_name`, `genre`, `Song path`) VALUES (?, ?, ?, ?, ?);";
-        int numberOfRowsAffected;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-            preparedStatement.setString(1, song.getSongName());
-            preparedStatement.setString(2, song.getDuration());
-            preparedStatement.setString(3, song.getArtistName());
-            preparedStatement.setString(4, song.getGenre());
-            preparedStatement.setString(5, song.getSongPath());
             numberOfRowsAffected = preparedStatement.executeUpdate();
         }
         return numberOfRowsAffected > 0;
