@@ -1,6 +1,8 @@
 package com.niit.jdp;
 
+import com.niit.jdp.exception.PlaylistNotFoundException;
 import com.niit.jdp.exception.SongNotFoundException;
+import com.niit.jdp.model.Playlist;
 import com.niit.jdp.model.Song;
 import com.niit.jdp.repository.PlaylistRepository;
 import com.niit.jdp.repository.SongRepository;
@@ -23,7 +25,8 @@ public class Main {
             System.out.println("2. Search full song details by playlist ID");
             System.out.println("3: Play song from the Playlist");
             System.out.println("4. Create you're own playlist");
-            System.out.println("5. Exit");
+            System.out.println("5: Delete the created playlist if you need");
+            System.out.println("6. Exit");
             System.out.println("============================================");
 
             Scanner scanner = new Scanner(System.in);
@@ -87,13 +90,26 @@ public class Main {
                             String songName = scanner.next();
                             playlistRepository.createPlaylist(connection, playlistName, songId, songName);
                             System.out.println("Enter 2 to continue adding song to your playlist or 0 to stop adding");
+                            scanner.nextInt();
+                        }
+                        break;
+                    }
+                    case 5: {
+                        System.out.println();
+                        List<Playlist> all = playlistRepository.getAll(connection);
+                        System.out.println(all);
+                        System.out.println("Enter playlist ID to delete : ");
+                        int playlistId = scanner.nextInt();
+                        playlistRepository.deleteById(connection, playlistId);
+                        if (playlistId == 0) {
+                            throw new PlaylistNotFoundException("The playlist ID is not in the list!! Try Valid choice.");
                         }
                         break;
                     }
                     default:
-                        throw new IllegalStateException("Unexpected value: " + choice);
+                        System.out.println("Invalid Choice");
                 }
-            } catch (SQLException | SongNotFoundException exception) {
+            } catch (SQLException | SongNotFoundException | PlaylistNotFoundException exception) {
                 System.err.println("Could not connect to the database!");
                 exception.printStackTrace();
                 choice = 5;
