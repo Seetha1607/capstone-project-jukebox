@@ -35,23 +35,21 @@ public class PlaylistRepository implements Repository<Playlist> {
         return List.of(new Playlist());
     }
 
-
-
     /**
      * This function creates a new playlist in the database
      *
-     * @param connection The connection to the database.
+     * @param connection   The connection to the database.
      * @param playlistName The name of the playlist
-     * @param songId The id of the song you want to add to the playlist
+     * @param songId       The id of the song you want to add to the playlist
      * @return The number of rows affected by the query.
      */
-    public boolean createPlaylist(Connection connection, String playlistName,int songId,String songName) throws SQLException {
+    public boolean createPlaylist(Connection connection, String playlistName, int songId, String songName) throws SQLException {
         String insertQuery = "INSERT INTO `jukebox`.`playlist` (playlist_name, song_id,song_name) VALUES (?,?,?);";
         int numberOfRowsAffected;
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-            preparedStatement.setString(1,playlistName);
+            preparedStatement.setString(1, playlistName);
             preparedStatement.setInt(2, songId);
-            preparedStatement.setString(3,songName);
+            preparedStatement.setString(3, songName);
             numberOfRowsAffected = preparedStatement.executeUpdate();
         }
         return numberOfRowsAffected > 0;
